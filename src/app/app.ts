@@ -1,8 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { RouterOutlet } from '@angular/router'; 
+import { Finanzas} from '../app/Components/finanzas/finanzas';
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Finanzas],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
