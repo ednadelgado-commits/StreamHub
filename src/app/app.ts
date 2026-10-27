@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Admin } from './components/admin/admin';
 
 @Component({
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, Admin ],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
