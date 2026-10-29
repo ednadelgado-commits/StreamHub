@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
-import { Perfil } from './components/perfil/perfil';
+import {Grupos} from './components/grupos/grupos';
 
 export const routes: Routes = [
-    { path: '', component: Perfil },
-    { path: '**', redirectTo: '' }
-
+  {path: '', redirectTo: '/grupos', pathMatch: 'full'},
+  {path: 'grupos', component: Grupos}
 ];
