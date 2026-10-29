@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Admin } from './components/admin/admin';
+import { Perfil } from './components/perfil/perfil';
 
 @Component({
-  imports: [RouterOutlet, Admin ],
+  imports: [RouterOutlet, Perfil],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
