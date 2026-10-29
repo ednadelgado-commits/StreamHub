@@ -1,12 +1,11 @@
-import { Component } from '@angular/core'
-import { RouterLink } from '@angular/router'
-
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [RouterLink],
   selector: 'app-solicitudes',
+  standalone: true,
+  imports: [RouterLink],
   styleUrl: './solicitudes.css',
   templateUrl: './solicitudes.html',
 })
-
-export class solicitudes{}
+export class solicitudes {}

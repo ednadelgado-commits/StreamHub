@@ -1,109 +1,105 @@
-<div id="view-mod3" class="module-view hidden">
-  <div class="module-header">
-    <h2>Solicitudes y Gestión de Participantes</h2>
-    <p>Autoriza el acceso a nuevos integrantes y administra las plazas de tus grupos</p>
-  </div>
-
-  <div class="card-box">
-    <div class="card-top">
-      <div class="card-title-group">
-        <h3 class="card-title">Solicitudes de Ingreso Pendientes</h3>
-        <span class="badge-amber">2 Por revisar</span>
+<div class="max-w-6xl mx-auto p-6">
+  <div id="view-mod3" class="module-view space-y-8">
+      <div>
+        <h2 class="text-2xl font-black text-white">Solicitudes y Gestión de Participantes</h2>
+        <p class="text-sm text-slate-400">Autoriza el acceso a nuevos integrantes y administra las plazas de tus grupos</p>
       </div>
-    </div>
 
-    <div class="requests-wrapper" id="requests-list">
-      
-      <div class="request-card">
-        <div class="user-info-group">
-          <img src="hcf377fde?w=100&h=100&fit=crop" class="avatar-img" alt="Avatar">
-          <div>
-            <p class="user-name-text">
-              Juan Pablo Morales 
-              <span class="user-subtext">• Quiere entrar a <strong>Prime Video</strong></span>
-            </p>
-            <p class="user-comment">"Hola Carlos, tengo la transferencia lista para cada inicio de mes."</p>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <h3 class="text-base font-bold text-white">Solicitudes de Ingreso Pendientes</h3>
+            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded-full font-semibold">2 Por revisar</span>
           </div>
         </div>
-        <div class="actions-group">
-          <button onclick="approveRequest(this)" class="btn btn-accept">
-            <i class="fa-solid fa-check"></i> Aceptar
-          </button>
-          <button onclick="rejectRequest(this)" class="btn btn-reject">
-            <i class="fa-solid fa-xmark"></i> Rechazar
-          </button>
-        </div>
-      </div>
 
-      <div class="request-card">
-        <div class="user-info-group">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="avatar-img" alt="Avatar">
-          <div>
-            <p class="user-name-text">
-              Sofía Herrera 
-              <span class="user-subtext">• Quiere entrar a <strong>Disney+ 4K</strong></span>
-            </p>
-            <p class="user-comment">"Busco plaza a largo plazo para mi televisor."</p>
+        <div class="space-y-3" id="requests-list">
+          
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border border-slate-700" alt="Avatar">
+              <div>
+                <p class="text-sm font-bold text-white">Juan Pablo Morales <span class="text-xs font-normal text-slate-400">• Quiere entrar a <strong>Prime Video</strong></span></p>
+                <p class="text-xs text-slate-400 italic">"Hola Carlos, tengo la transferencia lista para cada inicio de mes."</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="approveRequest(this)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                <i class="fa-solid fa-check mr-1"></i> Aceptar
+              </button>
+              <button onclick="rejectRequest(this)" class="bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                <i class="fa-solid fa-xmark mr-1"></i> Rechazar
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="actions-group">
-          <button onclick="approveRequest(this)" class="btn btn-accept">
-            <i class="fa-solid fa-check"></i> Aceptar
-          </button>
-          <button onclick="rejectRequest(this)" class="btn btn-reject">
-            <i class="fa-solid fa-xmark"></i> Rechazar
-          </button>
+
+          <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" class="w-10 h-10 rounded-full border border-slate-700" alt="Avatar">
+              <div>
+                <p class="text-sm font-bold text-white">Sofía Herrera <span class="text-xs font-normal text-slate-400">• Quiere entrar a <strong>Disney+ 4K</strong></span></p>
+                <p class="text-xs text-slate-400 italic">"Busco plaza a largo plazo para mi televisor."</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="approveRequest(this)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                <i class="fa-solid fa-check mr-1"></i> Aceptar
+              </button>
+              <button onclick="rejectRequest(this)" class="bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                <i class="fa-solid fa-xmark mr-1"></i> Rechazar
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
 
-    </div>
-  </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+          <h3 class="text-base font-bold text-white">Participantes Activos en tus Grupos</h3>
+          <select class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-brand-500">
+            <option>Grupo: Prime Video (2 de 3 ocupados)</option>
+            <option>Grupo: Disney+ Familia (3 de 4 ocupados)</option>
+          </select>
+        </div>
 
-  <div class="card-box">
-    <div class="card-top">
-      <h3 class="card-title">Participantes Activos en tus Grupos</h3>
-      <select class="select-custom">
-        <option>Grupo: Prime Video (2 de 3 ocupados)</option>
-        <option>Grupo: Disney+ Familia (3 de 4 ocupados)</option>
-      </select>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="text-slate-400 border-b border-slate-800 bg-slate-950/40">
+              <tr>
+                <th class="py-3 px-4">Miembro</th>
+                <th class="py-3 px-4">Fecha de Ingreso</th>
+                <th class="py-3 px-4">Cuota Mensual</th>
+                <th class="py-3 px-4">Estatus de Pago</th>
+                <th class="py-3 px-4 text-right">Acción</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 text-slate-300">
+              <tr>
+                <td class="py-3 px-4 flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-brand-600 flex items-center justify-center font-bold text-white text-[10px]">CM</div>
+                  <span>Carlos Mendoza <strong class="text-indigo-400 font-normal">(Tú - Admin)</strong></span>
+                </td>
+                <td class="py-3 px-4">15/Ene/2026</td>
+                <td class="py-3 px-4 font-bold text-white">$50.00 MXN</td>
+                <td class="py-3 px-4"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-medium">Titular</span></td>
+                <td class="py-3 px-4 text-right text-slate-500">-</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white text-[10px]">LR</div>
+                  <span>Luis Rivas</span>
+                </td>
+                <td class="py-3 px-4">02/Feb/2026</td>
+                <td class="py-3 px-4 font-bold text-white">$50.00 MXN</td>
+                <td class="py-3 px-4"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-medium">Al Día</span></td>
+                <td class="py-3 px-4 text-right">
+                  <button class="text-rose-400 hover:text-rose-300 font-semibold" onclick="alert('Expulsión simulada para demostración')">Expulsar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-
-    <div class="table-responsive">
-      <table class="custom-table">
-        <thead>
-          <tr>
-            <th>Miembro</th>
-            <th>Fecha de Ingreso</th>
-            <th>Cuota Mensual</th>
-            <th>Estatus de Pago</th>
-            <th class="text-right">Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="member-cell">
-              <div class="avatar-initials avatar-bg-brand">CM</div>
-              <span>Carlos Mendoza <strong class="text-indigo-highlight">(Tú - Admin)</strong></span>
-            </td>
-            <td>15/Ene/2026</td>
-            <td style="font-weight: 700; color: #ffffff;">$50.00 MXN</td>
-            <td><span class="badge-emerald">Titular</span></td>
-            <td class="text-right" style="color: var(--text-muted);">-</td>
-          </tr>
-          <tr>
-            <td class="member-cell">
-              <div class="avatar-initials avatar-bg-dark">LR</div>
-              <span>Luis Rivas</span>
-            </td>
-            <td>02/Feb/2026</td>
-            <td style="font-weight: 700; color: #ffffff;">$50.00 MXN</td>
-            <td><span class="badge-emerald">Al Día</span></td>
-            <td class="text-right">
-              <button class="btn-kick" onclick="alert('Expulsión simulada para demostración')">Expulsar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
 </div>

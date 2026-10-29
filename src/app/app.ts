@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { solicitudes } from '../app/components/solicitudes/solicitudes'
-import { RouterOutlet } from '@angular/router';
-
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { solicitudes } from './components/solicitudes/solicitudes';
 
 @Component({
-  imports: [RouterOutlet, solicitudes],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [RouterLink, solicitudes],
   templateUrl: './app.html',
 })
-export class App {
-}
+export class App {}
