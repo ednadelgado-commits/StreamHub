@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
-import { Inicio } from './Components/inicio/inicio';
+import { solicitudes } from './components/solicitudes/solicitudes';
 
-export const routes: Routes = 
-[
-    { path: '', component: Inicio },
-    { path: 'inicio', component: Inicio }
-]
+export const routes: Routes = [
+    {path:"", component:solicitudes},
+    {path:"**", redirectTo: '' }
+];
