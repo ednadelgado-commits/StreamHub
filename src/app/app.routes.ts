@@ -1,8 +1,7 @@
 import { Routes } from '@angular/router';
-import { Perfil } from './components/perfil/perfil';
+import { solicitudes } from './components/solicitudes/solicitudes';
 
 export const routes: Routes = [
-    { path: '', component: Perfil },
-    { path: '**', redirectTo: '' }
-
+    {path:"", component:solicitudes},
+    {path:"**", redirectTo: '' }
 ];

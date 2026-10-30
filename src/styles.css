@@ -1,15 +1,2 @@
+
 @import "tailwindcss";
-
-html,
-body {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-}
-
-app-root {
-  display: block;
-  min-height: 100vh;
-}
