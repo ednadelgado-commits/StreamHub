@@ -1,0 +1,118 @@
+
+<div id="view-mod5" class="module-view hidden">
+
+    <!-- Perfil del usuario -->
+    <div class="profile-card">
+
+        <div class="profile-info">
+            <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces"
+                class="profile-image"
+                alt="Carlos M."
+            >
+
+            <div class="profile-details">
+                <div class="profile-heading">
+                    <h2>Carlos Mendoza</h2>
+                    <span class="verified">Verificado</span>
+                </div>
+
+                <p class="profile-email">
+                    carlos.mendoza@email.com • Miembro desde Enero 2026
+                </p>
+
+                <div class="profile-stats">
+                    <span class="reputation">
+                        <i class="fa-solid fa-star"></i> 5.0 Reputación
+                    </span>
+                    <span class="separator">•</span>
+                    <span class="payments">100% Pagos a Tiempo</span>
+                </div>
+            </div>
+        </div>
+
+        <button
+            class="edit-button"
+            onclick="alert('Modal de edición de perfil activado')"
+        >
+            <i class="fa-solid fa-pen-to-square"></i>
+            Editar Perfil
+        </button>
+
+    </div>
+
+    <!-- Paneles principales -->
+    <div class="profile-grid">
+
+        <!-- Servicios de interés -->
+        <div class="panel">
+
+            <div class="panel-heading">
+                <h4>Servicios de mi Interés (Watchlist)</h4>
+                <span class="add-service">+ Añadir</span>
+            </div>
+
+            <p class="panel-description">
+                Te avisaremos automáticamente cuando alguien cree un grupo
+                de estas plataformas con cupos disponibles.
+            </p>
+
+            <div class="service-list">
+
+                <div class="service-item">
+                    <div class="service-info">
+                        <i class="fa-solid fa-film crunchyroll-icon"></i>
+                        <span class="service-name">Crunchyroll Mega Fan</span>
+                    </div>
+                    <span class="availability">Buscando cupo</span>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-info">
+                        <i class="fa-brands fa-apple apple-icon"></i>
+                        <span class="service-name">Apple One Familiar</span>
+                    </div>
+                    <span class="availability">Buscando cupo</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Preferencias y notificaciones -->
+        <div class="panel">
+
+            <h4>Preferencias y Notificaciones</h4>
+
+            <p class="panel-description">
+                Controla cómo te avisa StreamHub sobre vencimientos y nuevas solicitudes.
+            </p>
+
+            <div class="notification-list">
+
+                <label class="notification-item">
+                    <span>
+                        Alertas de cobro por correo electrónico (3 días antes)
+                    </span>
+                    <input type="checkbox" checked>
+                </label>
+
+                <label class="notification-item">
+                    <span>
+                        Notificarme cuando alguien solicite unirse a mis grupos
+                    </span>
+                    <input type="checkbox" checked>
+                </label>
+
+                <label class="notification-item">
+                    <span>
+                        Recibir reporte mensual resumido de gastos
+                    </span>
+                    <input type="checkbox">
+                </label>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
