@@ -1,0 +1,206 @@
+.main-container {
+  background-color: #0b0f19;
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 2rem 4rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.subtitle {
+  color: #718096;
+  margin-top: 0.25rem;
+  font-size: 0.9rem;
+}
+
+/* Botón Crear */
+.btn-primary {
+  background-color: #5850ec;
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+}
+
+/* Pestañas */
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tab-btn {
+  background: #151c2c;
+  border: 1px solid #2d3748;
+  color: #a0aec0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.tab-btn.active {
+  background: #2b3649;
+  color: #fff;
+  border-color: #4a5568;
+}
+
+/* Grilla */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Tarjeta */
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.badge-service {
+  background: rgba(99, 102, 241, 0.15);
+  color: #818cf8;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-slots {
+  color: #34d399;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.card-title {
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.card-admin {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  margin-bottom: 1.25rem;
+}
+
+.rating {
+  color: #fbbf24;
+}
+
+/* Barras de Plazas */
+.plazas-container {
+  margin-bottom: 1.25rem;
+}
+
+.plazas-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin-bottom: 0.4rem;
+}
+
+.plazas-bars {
+  display: flex;
+  gap: 4px;
+}
+
+.bar-segment {
+  height: 6px;
+  flex: 1;
+  background-color: #374151;
+  border-radius: 3px;
+}
+
+.bar-segment.filled {
+  background-color: #6366f1;
+}
+
+/* Caja de Precio */
+.price-box {
+  background: #1f2937;
+  padding: 0.75rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 1rem;
+}
+
+.price-amount {
+  color: #34d399;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Detalles */
+.details-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem 0;
+  color: #9ca3af;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Botones de la Tarjeta */
+.btn-action {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s;
+}
+
+.btn-join {
+  background-color: #4f46e5;
+  color: white;
+}
+
+.btn-manage {
+  background-color: #1f2937;
+  color: white;
+  border: 1px solid #374151;
+}
+
+.btn-action:hover {
+  opacity: 0.9;
+}

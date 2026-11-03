@@ -1,2 +1,76 @@
-<h1>Encuentra una plaza libre o crea tu propio grupo para compartir gastos<h1>
-
+<div class="main-container">
+  <header class="header-section">
+    <div>
+      <h1 class="title">Grupos y Suscripciones Compartidas</h1>
+      <p class="subtitle">Encuentra una plaza libre o crea tu propio grupo para compartir gastos</p>
+    </div>
+    <button class="btn-primary">+ Crear Nuevo Grupo</button>
+  </header>
+  <div class="tabs">
+    <button 
+      class="tab-btn" 
+      [class.active]="pestanaActiva === 'libres'" 
+      (click)="cambiarPestana('libres')">
+      Grupos con plazas libres (14)
+    </button>
+    <button 
+      class="tab-btn" 
+      [class.active]="pestanaActiva === 'participo'" 
+      (click)="cambiarPestana('participo')">
+      Grupos donde participo (2)
+    </button>
+  </div>
+  <div class="cards-grid">
+    @for (grupo of grupos; track grupo.id) {
+      <div class="card">
+        <div class="card-header">
+          <span class="badge-service">{{ grupo.servicio }}</span>
+          <span class="badge-slots">{{ grupo.cuposLibres }} cupo{{ grupo.cuposLibres > 1 ? 's' : '' }} libre</span>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title">{{ grupo.titulo }}</h2>
+          <p class="card-admin">
+            Admin: {{ grupo.adminNombre }} 
+            <span class="rating">★ {{ grupo.adminRating }}</span>
+          </p>
+          <div class="plazas-container">
+            <div class="plazas-header">
+              <span>Plazas ocupadas</span>
+              <span class="plazas-count">{{ grupo.plazasOcupadas }} de {{ grupo.plazasTotales }}</span>
+            </div>
+            <div class="plazas-bars">
+              @for (i of getBarArray(grupo.plazasTotales); track $index) {
+                <div 
+                  class="bar-segment"
+                  [class.filled]="$index < grupo.plazasOcupadas">
+                </div>
+              }
+            </div>
+          </div>
+          <div class="price-box">
+            <span>Cuota por persona:</span>
+            <span class="price-amount">${{ grupo.cuota }} {{ grupo.moneda }}</span>
+          </div>
+          <ul class="details-list">
+            @for (detalle of grupo.detalles; track $index) {
+              <li>
+                <small>{{ detalle.texto }}</small>
+              </li>
+            }
+          </ul>
+        </div>
+        <div class="card-footer">
+          @if (!grupo.esAdmin) {
+            <button class="btn-action btn-join">
+              Solicitar Unirse al Grupo
+            </button>
+          } @else {
+            <button class="btn-action btn-manage">
+              Gestionar Participantes
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
