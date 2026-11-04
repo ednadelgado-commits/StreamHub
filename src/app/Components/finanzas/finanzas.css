@@ -1,0 +1,129 @@
+@import 'animate.css/animate.min.css';
+
+/* Pantalla */
+.finanzas {
+  font-family: Arial, sans-serif;
+}
+
+/* Tarjetas */
+.tarjeta {
+  background-color: #111827;
+  border: 1px solid #243047;
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 130px;
+}
+
+/* Paneles */
+.panel {
+  background-color: #111827;
+  border: 1px solid #243047;
+  border-radius: 16px;
+  padding: 24px;
+  min-height: 310px;
+}
+
+/* Grafica */
+.grafica {
+  width: 192px;
+  height: 192px;
+  margin: 20px auto;
+  border-radius: 50%;
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grafica::before {
+  content: '';
+  position: absolute;
+  inset: 24px;
+  background-color: #111827;
+  border-radius: 50%;
+}
+
+/* Formulario */
+.formulario-panel {
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+.etiqueta {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+}
+
+.campo {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #64748b;
+  border-radius: 9px;
+  padding: 12px;
+  color: white;
+  outline: none;
+}
+
+.campo:focus {
+  border-color: #10b981;
+}
+
+.campo::placeholder {
+  color: #94a3b8;
+}
+
+option {
+  background-color: #0f172a;
+  color: white;
+}
+
+/* Tabla */
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  white-space: nowrap;
+}
+
+/* Botones */
+button {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 768px) {
+
+  .tarjeta {
+    padding: 20px;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .grafica {
+    width: 170px;
+    height: 170px;
+  }
+
+  .grafica::before {
+    inset: 22px;
+  }
+
+}
+
+/* Impresion de reportes */
+@media print {
+
+  .finanzas button,
+  .formulario-panel {
+    display: none;
+  }
+
+}

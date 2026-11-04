@@ -1,0 +1,21 @@
+<section>
+    <h2>Contacto</h2>
+        <form>
+            <label for="nombre">Nombre</label>
+            <input type="text" [(ngModel)]="Nombre">
+            <button (click)="Enviado = true">Enviar</button>
+        </form>
+</section>
+<aside>
+    <h3>Vista Previa</h3>
+    @if (Nombre) {
+        <p>Nombre: {{ Nombre }}</p>
+    }
+    @else {
+        <p>Sin Informacion</p>
+    }
+    @if (Enviado) {
+        <p>Formulario Enviado</p>
+    }
+
+</aside>
