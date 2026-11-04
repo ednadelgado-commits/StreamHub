@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
+import { RouterLink } from '@angular/router';
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-inicio',
   styleUrl: './inicio.css',
   templateUrl: './inicio.html',
