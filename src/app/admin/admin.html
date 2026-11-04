@@ -1,0 +1,46 @@
+<section class="form-card">
+  <h1>{{ titulo }}</h1>
+  <h3>Nueva Plataforma</h3>
+  //interpolación para mostrar u ocultar el formulario
+  <button class="btn btn-principal" type="button" (click)="mostrar = !mostrar ">{mostrar ? 'Ocultar' : 'Mostrar'}</button>
+
+  @if (mostrar){
+    <section class="infomacion">
+      <p>En esta sección puedes agregar nuevas plataformas de streaming a la aplicación. Completa los campos del formulario y haz clic en "Guardar" para añadir la plataforma.</p>
+    </section>
+  }
+
+
+  <form class="form-grid">
+    <div class="campo">
+      <label for="plataforma">Plataforma</label>
+      <input id="plataforma" type="text" placeholder="Ej. Disney+ Premium" />
+    </div>
+
+    <div class="campo">
+      <label for="categoria">Categoría</label>
+      <input id="categoria" type="text" placeholder="Ej. Video" />
+    </div>
+
+    <div class="campo">
+      <label for="precio">Precio base</label>
+      <input id="precio" type="number" placeholder="299.00" />
+    </div>
+
+    <div class="campo">
+      <label for="cupos">Máx. cupos</label>
+      <input id="cupos" type="number" placeholder="4" />
+    </div>
+
+    <!-- Este campo ocupa las 2 columnas -->
+    <div class="campo campo-completo">
+      <label for="descripcion">Descripción</label>
+      <textarea id="descripcion" rows="3" placeholder="Escribe una descripción..."></textarea>
+    </div>
+
+    <div class="campo-completo acciones">
+      <button type="button" class="btn btn-secundario">Cancelar</button>
+      <button type="submit" class="btn btn-principal">Guardar</button>
+    </div>
+  </form>
+</section>

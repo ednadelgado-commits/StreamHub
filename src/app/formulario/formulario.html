@@ -1,0 +1,23 @@
+<section>
+    <h1>CONTACTO</h1>
+    <form>
+        <label for="nombre">Nombre:</label>
+        <input type="text"[(ngModel)]="nombre" 
+>
+    <div class="campo-completo acciones">
+      <button type="submit" class="btn btn-principal">ENVIADO</button>
+    </div>
+    </form>
+</section>
+
+<!-- muestra una vista previa del nombre ingresado en el formulario -->
+<aside> 
+    <h2>Vista previa:</h2>
+    <p>{{ nombre }}</p>
+    @if(nombre)
+        {<p>nombre: {{ nombre }}}</p>
+    @else
+        {<p>nombre: No se ha ingresado un nombre</p>}
+    @if(enviado)
+        {<p>Formulario enviado con éxito</p>}
+</aside>
