@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './solicitudes.css',
   templateUrl: './solicitudes.html',
 })
+
 export class Solicitudes {
 }

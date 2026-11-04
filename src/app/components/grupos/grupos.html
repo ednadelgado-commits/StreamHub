@@ -1,6 +1,13 @@
 <div class="main-container">
   <header class="header-section">
     <div>
+      <h1>{{titulo}}</h1>
+      <button class="btn-secondary" (click)="mostrar = !mostrar">
+        {{ mostrar ? 'Ocultar' : 'Mostrar' }} Detalles
+      </button>
+      @if(mostrar){
+        <section class="informacion" > <h1>Información</h1></section>
+      }
       <h1 class="title">Grupos y Suscripciones Compartidas</h1>
       <p class="subtitle">Encuentra una plaza libre o crea tu propio grupo para compartir gastos</p>
     </div>

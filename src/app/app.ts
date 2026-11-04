@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Perfil } from './components/perfil/perfil';
-
+import {Formulario} from './components/formulario/formulario';
 @Component({
   imports: [RouterOutlet, Perfil],
   selector: 'app-root',
