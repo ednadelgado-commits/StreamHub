@@ -1,3 +1,5 @@
+<h1>{{ titulo }}</h1>
+
 <section class="profile-page min-h-screen bg-slate-950 text-slate-100">
   <main class="profile-content">
     <div class="profile-layout">
@@ -11,6 +13,8 @@
 
           <div class="profile-details">
             <div class="profile-heading">
+
+              
               <h1>Carlos Mendoza</h1>
               <span class="verified">Verificado</span>
             </div>
@@ -33,6 +37,13 @@
           Editar Perfil
         </button>
       </section>
+
+      <button class="add-service" type="button" (click)="mostrarinfo = !mostrarinfo">{{ mostrarinfo ? 'Ocultar' : 'Mostrar' }} información</button>
+      @if (mostrarinfo){
+        <section class="additional-info">
+          <p>Esta es información adicional que se muestra al hacer clic en el botón.</p>
+        </section>
+      }
 
       <div class="profile-grid">
         <section class="panel" aria-labelledby="watchlist-title">
