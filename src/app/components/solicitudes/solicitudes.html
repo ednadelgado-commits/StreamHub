@@ -1,1 +1,99 @@
-<p>solicitudes works!</p>
+<div class="max-w-6xl mx-auto p-6">
+  <div class="space-y-8">
+    <div>
+      <h2 class="text-2xl font-black text-white">Solicitudes y Gestión de Participantes</h2>
+      <p class="text-sm text-slate-400">Autoriza el acceso a nuevos integrantes y administra las plazas de tus grupos</p>
+    </div>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <div class="flex items-center gap-3 mb-6">
+        <h3 class="text-base font-bold text-white">Solicitudes de Ingreso Pendientes</h3>
+        <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs px-2.5 py-0.5 rounded-full font-semibold">
+          {{ solicitudesPendientes.length }} Por revisar
+        </span>
+      </div>
+
+      <div class="space-y-3">
+        @for (solicitud of solicitudesPendientes; track solicitud.id) {
+          <article class="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <img [src]="solicitud.avatarUrl" class="w-10 h-10 rounded-full border border-slate-700" [alt]="'Avatar de ' + solicitud.nombre">
+              <div>
+                <p class="text-sm font-bold text-white">
+                  {{ solicitud.nombre }}
+                  <span class="text-xs font-normal text-slate-400">• Quiere entrar a <strong>{{ solicitud.servicio }}</strong></span>
+                </p>
+                <p class="text-xs text-slate-400 italic">“{{ solicitud.mensaje }}”</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" (click)="aceptarSolicitud(solicitud.id)" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                Aceptar
+              </button>
+              <button type="button" (click)="rechazarSolicitud(solicitud.id)" class="bg-slate-800 hover:bg-rose-600 text-slate-300 hover:text-white text-xs font-medium px-4 py-2 rounded-lg transition">
+                Rechazar
+              </button>
+            </div>
+          </article>
+        } @empty {
+          <p class="text-sm text-slate-400">No hay solicitudes pendientes.</p>
+        }
+      </div>
+    </section>
+
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+        <h3 class="text-base font-bold text-white">Participantes Activos en tus Grupos</h3>
+        <select aria-label="Grupo seleccionado" class="bg-slate-950 border border-slate-800 text-xs rounded-xl px-3 py-2 text-slate-300 focus:outline-none focus:border-cyan-500">
+          <option>Grupo: Prime Video (2 de 3 ocupados)</option>
+          <option>Grupo: Disney+ Familia (3 de 4 ocupados)</option>
+        </select>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="text-slate-400 border-b border-slate-800 bg-slate-950/40">
+            <tr>
+              <th class="py-3 px-4">Miembro</th>
+              <th class="py-3 px-4">Fecha de Ingreso</th>
+              <th class="py-3 px-4">Cuota Mensual</th>
+              <th class="py-3 px-4">Estatus de Pago</th>
+              <th class="py-3 px-4 text-right">Acción</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800 text-slate-300">
+            @for (participante of participantes; track participante.id) {
+              <tr>
+                <td class="py-3 px-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-slate-700 flex items-center justify-center font-bold text-white text-[10px]">{{ participante.iniciales }}</div>
+                    <span>
+                      {{ participante.nombre }}
+                      @if (participante.esTitular) {
+                        <strong class="text-indigo-400 font-normal">(Tú - Admin)</strong>
+                      }
+                    </span>
+                  </div>
+                </td>
+                <td class="py-3 px-4">{{ participante.fechaIngreso }}</td>
+                <td class="py-3 px-4 font-bold text-white">{{ participante.cuota }}</td>
+                <td class="py-3 px-4"><span class="bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded font-medium">{{ participante.estatus }}</span></td>
+                <td class="py-3 px-4 text-right">
+                  @if (!participante.esTitular) {
+                    <button type="button" (click)="expulsarParticipante(participante.id)" class="text-rose-400 hover:text-rose-300 font-semibold">Expulsar</button>
+                  } @else {
+                    <span class="text-slate-500">—</span>
+                  }
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="5" class="py-4 px-4 text-center text-slate-400">No hay participantes en este grupo.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

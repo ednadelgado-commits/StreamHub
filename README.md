@@ -1,9 +1,14 @@
+# StreamHub
 
-esta es mi rama y pertenece a Brit
+Interfaz web para explorar grupos de suscripción y administrar participantes.
 
+## Desarrollo local
 
-esta es mi rama y pertenece a LUIS HUMBERTO
-(ekna)
+```bash
+npm install
+npm start
+```
 
-# Esta es mi rama Brandon
+## Colaboración
 
+Consulta [CONTRIBUTING.md](./CONTRIBUTING.md) para ver los límites por componente y el flujo acordado para actualizar, guardar e integrar cambios.

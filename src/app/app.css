@@ -1,17 +1,8 @@
-.apartados {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 5%;
-  background-color: rgba(0, 0, 0, 0.2);
+:host {
+  display: block;
+  min-height: 100vh;
 }
-.apartados .logo {
-  font-size: 1.8rem;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-#lista-nav {
-  display: flex;
-  list-style: none;
-  gap: 25px;
+
+.app-content {
+  min-height: 100vh;
 }

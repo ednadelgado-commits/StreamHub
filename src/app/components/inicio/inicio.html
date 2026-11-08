@@ -1,0 +1,80 @@
+<section class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <header class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div class="max-w-2xl">
+        <p class="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-cyan-400">StreamHub · Inicio y catálogo</p>
+        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl">Tu entretenimiento, en un solo lugar</h1>
+        <p class="mt-4 text-base leading-7 text-slate-400">Descubre plataformas y encuentra grupos para compartir el costo de tus suscripciones.</p>
+      </div>
+      <a routerLink="/grupos" class="inline-flex items-center justify-center rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 transition hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-200">
+        Explorar grupos
+      </a>
+    </header>
+
+    <div class="mb-10 grid gap-4 sm:grid-cols-3" aria-label="Resumen del catálogo de ejemplo">
+      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <p class="text-sm text-slate-400">Plataformas destacadas</p>
+        <p class="mt-2 text-3xl font-black text-white">3</p>
+      </article>
+      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <p class="text-sm text-slate-400">Grupos con espacios</p>
+        <p class="mt-2 text-3xl font-black text-white">8</p>
+      </article>
+      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
+        <p class="text-sm text-slate-400">Cuotas desde</p>
+        <p class="mt-2 text-3xl font-black text-white">$45 <span class="text-sm font-medium text-slate-400">MXN / mes</span></p>
+      </article>
+    </div>
+
+    <section aria-labelledby="catalog-title">
+      <div class="mb-5 flex items-end justify-between gap-4">
+        <div>
+          <h2 id="catalog-title" class="text-2xl font-bold text-white">Explora plataformas</h2>
+          <p class="mt-1 text-sm text-slate-400">Tarifas y disponibilidad mostradas como ejemplo.</p>
+        </div>
+        <a routerLink="/grupos" class="hidden text-sm font-semibold text-cyan-300 hover:text-cyan-200 sm:inline">Ver todos los grupos →</a>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <article class="overflow-hidden rounded-3xl border border-rose-400/20 bg-gradient-to-br from-rose-500/15 to-slate-900 p-6">
+          <div class="flex items-center justify-between">
+            <span class="rounded-full bg-rose-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-rose-300">Series y películas</span>
+            <span class="text-xs font-semibold text-emerald-300">3 grupos abiertos</span>
+          </div>
+          <h3 class="mt-7 text-2xl font-black text-white">Netflix</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">Planes compartidos para disfrutar películas y series en familia.</p>
+          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$55 MXN</strong></p>
+            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-3xl border border-sky-400/20 bg-gradient-to-br from-sky-500/15 to-slate-900 p-6">
+          <div class="flex items-center justify-between">
+            <span class="rounded-full bg-sky-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-sky-300">Series y deportes</span>
+            <span class="text-xs font-semibold text-emerald-300">2 grupos abiertos</span>
+          </div>
+          <h3 class="mt-7 text-2xl font-black text-white">Prime Video</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">Encuentra un espacio disponible y comparte el pago mensual.</p>
+          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$50 MXN</strong></p>
+            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-3xl border border-indigo-400/20 bg-gradient-to-br from-indigo-500/15 to-slate-900 p-6">
+          <div class="flex items-center justify-between">
+            <span class="rounded-full bg-indigo-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-indigo-300">Disney, Pixar y más</span>
+            <span class="text-xs font-semibold text-emerald-300">3 grupos abiertos</span>
+          </div>
+          <h3 class="mt-7 text-2xl font-black text-white">Disney+</h3>
+          <p class="mt-2 text-sm leading-6 text-slate-300">Opciones para compartir perfiles y controlar los gastos del grupo.</p>
+          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
+            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$45 MXN</strong></p>
+            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+</section>
