@@ -1,0 +1,39 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: block;
+}
+
+.site-header {
+  background: #0f0f0f;
+  border-bottom: 1px solid rgb(255 255 255 / 10%);
+}
+
+.site-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  padding: 0.5rem 1rem;
+}
+
+.site-nav a {
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: #000;
+  background: #22d3ee;
+  outline: none;
+}

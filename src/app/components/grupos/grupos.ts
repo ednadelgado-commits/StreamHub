@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-grupos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],  
   templateUrl: './grupos.html',
   styleUrls: ['./grupos.css']
 })
