@@ -26,7 +26,7 @@ export class Admin {
   ];
 
 
-  // eliminar(nombre: string) {
-  //   this.listaGrupos = this.listaGrupos.filter(g => g.nombre !== nombre);
-  // }
+  eliminar(nombre: string) {
+  this.listaGrupos = this.listaGrupos.filter(g => g.nombre !== nombre);
+  }
 }
