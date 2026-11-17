@@ -12,3 +12,27 @@ body {
   color: #fff;
   font-family: Arial, sans-serif;
 }
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #070913;
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  /* Fondo cósmico oscuro que armoniza con tu Navbar Stream Hub */
+  .catalogo-bg {
+    background-color: #070913;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(99, 102, 241, 0.14), transparent 38%),
+      radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.10), transparent 35%);
+  }
+
+  /* Brillo sutil interno en las tarjetas */
+  .platform-card {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+}

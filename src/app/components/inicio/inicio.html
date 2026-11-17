@@ -1,80 +1,221 @@
-<section class="min-h-screen bg-slate-950 text-slate-100">
-  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-    <header class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-      <div class="max-w-2xl">
-        <p class="mb-3 text-xs font-bold uppercase tracking-[0.24em] text-cyan-400">StreamHub · Inicio y catálogo</p>
-        <h1 class="text-4xl font-black tracking-tight text-white sm:text-5xl">Tu entretenimiento, en un solo lugar</h1>
-        <p class="mt-4 text-base leading-7 text-slate-400">Descubre plataformas y encuentra grupos para compartir el costo de tus suscripciones.</p>
+<section class="catalogo-bg relative min-h-screen overflow-hidden px-6 py-12 text-white md:px-10">
+  <div class="relative z-10 mx-auto max-w-7xl">
+
+    <!-- Cabecera -->
+    <header class="mb-8 flex flex-col gap-6 border-b border-white/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <span class="inline-flex items-center gap-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 px-3.5 py-1 text-xs font-semibold tracking-wider text-indigo-300 uppercase">
+          <span class="h-1.5 w-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+          Nuestro catálogo
+        </span>
+
+        <h1 class="mt-4 text-4xl font-black tracking-tight uppercase sm:text-5xl">
+          Catálogo
+          <span class="bg-gradient-to-r from-indigo-400 via-violet-400 to-blue-400 bg-clip-text text-transparent">
+            Stream Hub
+          </span>
+        </h1>
+
+        <p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-400">
+          Elige tu plataforma favorita y revisa la capacidad, duración, garantía y precio por perfil o acceso.
+        </p>
       </div>
-      <a routerLink="/grupos" class="inline-flex items-center justify-center rounded-xl bg-cyan-400 px-5 py-3 font-bold text-slate-950 transition hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-200">
-        Explorar grupos
-      </a>
+
+      <!-- Filtro por categoría + Barra de búsqueda -->
+      <div class="flex flex-col gap-3 lg:items-end">
+
+        <!-- Barra de búsqueda estilo Cheatsheet -->
+        <div class="relative w-full sm:w-72">
+          <!-- Icono de lupa -->
+          <svg class="pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2 text-slate-400"
+               fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m0 0A7.5 7.5 0 1 0 6.05 6.05a7.5 7.5 0 0 0 10.6 10.6Z" />
+          </svg>
+
+          <input
+            #inputBusqueda
+            type="text"
+            [value]="busqueda()"
+            (input)="actualizarBusqueda($event)"
+            placeholder="Buscar plataforma..."
+            class="w-full rounded-xl border border-white/10 bg-white/[0.03] py-2 pr-16 pl-10 text-xs text-white placeholder-slate-400 transition-all focus:border-indigo-500 focus:bg-white/[0.06] focus:ring-1 focus:ring-indigo-500 focus:outline-none">
+
+          <!-- Botón de limpiar (X) si hay texto, o badge Ctrl K si está vacío -->
+          @if (busqueda()) {
+            <button
+              type="button"
+              (click)="busqueda.set('')"
+              class="absolute top-1/2 right-2.5 -translate-y-1/2 rounded-md bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold text-slate-300 hover:bg-white/20 hover:text-white">
+              ✕
+            </button>
+          } @else {
+            <kbd class="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 rounded-md border border-indigo-500/30 bg-indigo-500/15 px-1.5 py-0.5 font-mono text-[10px] font-semibold text-indigo-300">
+              Ctrl K
+            </kbd>
+          }
+        </div>
+
+        <!-- Botones de categoría -->
+        <div class="flex flex-wrap items-center gap-2">
+          @for (cat of categorias; track cat) {
+            <button
+              type="button"
+              (click)="categoriaActiva.set(cat)"
+              class="rounded-xl border px-4 py-2 text-xs font-semibold transition-all"
+              [class]="categoriaActiva() === cat
+                ? 'border-indigo-500 bg-indigo-600 text-white shadow-lg shadow-indigo-500/25'
+                : 'border-white/10 bg-white/[0.03] text-slate-400 hover:border-white/25 hover:text-white'">
+              {{ cat }}
+            </button>
+          }
+        </div>
+
+      </div>
     </header>
 
-    <div class="mb-10 grid gap-4 sm:grid-cols-3" aria-label="Resumen del catálogo de ejemplo">
-      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
-        <p class="text-sm text-slate-400">Plataformas destacadas</p>
-        <p class="mt-2 text-3xl font-black text-white">3</p>
-      </article>
-      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
-        <p class="text-sm text-slate-400">Grupos con espacios</p>
-        <p class="mt-2 text-3xl font-black text-white">8</p>
-      </article>
-      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
-        <p class="text-sm text-slate-400">Cuotas desde</p>
-        <p class="mt-2 text-3xl font-black text-white">$45 <span class="text-sm font-medium text-slate-400">MXN / mes</span></p>
-      </article>
+    <!-- Layout: Grid de Tarjetas + Panel Lateral -->
+    <div class="grid items-start gap-8 lg:grid-cols-[1fr_360px]">
+
+      <!-- Tarjetas de productos -->
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        @for (p of plataformasFiltradas(); track p.nombre) {
+          @let isSelected = seleccionada()?.nombre === p.nombre;
+
+          <button
+            type="button"
+            (click)="seleccionar(p)"
+            class="platform-card group relative flex flex-col justify-between rounded-2xl border p-5 text-left transition-all duration-300 hover:-translate-y-1 focus:outline-none"
+            [class]="isSelected
+              ? 'border-indigo-500/80 bg-indigo-950/35 shadow-[0_0_30px_-5px_rgba(99,102,241,0.35)]'
+              : 'border-white/10 bg-white/[0.03] hover:border-white/25 hover:bg-white/[0.06]'">
+
+            <div class="w-full">
+              <!-- Logo + Badge de duración -->
+              <div class="mb-4 flex items-center justify-between gap-2">
+                <div class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-slate-900/90 p-1">
+                  <img
+                    [src]="p.logo"
+                    [alt]="p.nombre"
+                    class="h-full w-full rounded-lg object-contain transition-transform duration-300 group-hover:scale-110">
+                </div>
+
+                <span
+                  class="rounded-full px-2.5 py-1 text-[11px] font-semibold tracking-wide"
+                  [class]="p.duracion === 'Anual' || p.duracion === '3 meses'
+                    ? 'border border-amber-500/30 bg-amber-500/10 text-amber-300'
+                    : 'border border-white/10 bg-white/5 text-slate-300'">
+                  {{ p.duracion }}
+                </span>
+              </div>
+
+              <!-- Nombre -->
+              <h3 class="text-lg font-bold tracking-tight text-white group-hover:text-indigo-200">
+                {{ p.nombre }}
+              </h3>
+
+              <!-- Capacidad y Garantía -->
+              <div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                <span class="rounded-md bg-white/5 px-2 py-0.5 text-slate-300">
+                  {{ p.capacidad }}
+                </span>
+
+                @if (p.garantia) {
+                  <span class="rounded-md bg-emerald-500/10 px-2 py-0.5 font-medium text-emerald-400">
+                    {{ p.garantia }}
+                  </span>
+                }
+              </div>
+            </div>
+
+            <!-- Precio y acción -->
+            <div class="mt-5 flex w-full items-baseline justify-between border-t border-white/10 pt-4">
+              <div>
+                <span class="text-2xl font-black text-white">${{ p.precio }}</span>
+                <span class="ml-1 text-xs text-slate-400">MXN / {{ p.tipoCobro }}</span>
+              </div>
+
+              <span
+                class="text-xs font-semibold transition-colors"
+                [class]="isSelected ? 'text-indigo-400' : 'text-slate-400 group-hover:text-white'">
+                {{ isSelected ? 'Seleccionado' : 'Ver →' }}
+              </span>
+            </div>
+          </button>
+        } @empty {
+          <div class="col-span-full rounded-2xl border border-white/10 bg-white/[0.02] p-10 text-center">
+            <p class="text-sm text-slate-400">
+              No encontramos resultados para "<span class="text-white">{{ busqueda() }}</span>".
+            </p>
+            <button
+              type="button"
+              (click)="busqueda.set(''); categoriaActiva.set('Todos')"
+              class="mt-3 rounded-lg bg-indigo-600/20 px-3 py-1.5 text-xs font-semibold text-indigo-300 hover:bg-indigo-600/30">
+              Limpiar filtros
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Panel lateral con el resumen completo del producto seleccionado -->
+      <aside class="lg:sticky lg:top-8">
+        @if (seleccionada(); as actual) {
+          <div class="rounded-2xl border border-indigo-500/30 bg-slate-900/75 p-6 shadow-2xl backdrop-blur-xl">
+
+            <!-- Cabecera del panel -->
+            <div class="flex items-center gap-4 border-b border-white/10 pb-5">
+              <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-black/40 p-2">
+                <img [src]="actual.logo" [alt]="actual.nombre" class="h-full w-full object-contain">
+              </div>
+              <div>
+                <span class="text-xs font-semibold tracking-wider text-indigo-400 uppercase">
+                  {{ actual.categoria }}
+                </span>
+                <h2 class="text-2xl font-bold text-white">{{ actual.nombre }}</h2>
+              </div>
+            </div>
+
+            <!-- Precio destacado -->
+            <div class="mt-5 rounded-xl border border-indigo-500/20 bg-indigo-950/30 p-4 text-center">
+              <span class="text-xs font-medium tracking-wider text-indigo-300 uppercase">Precio</span>
+              <div class="mt-1 flex items-baseline justify-center gap-1">
+                <span class="text-4xl font-black text-white">${{ actual.precio }}</span>
+                <span class="text-sm font-medium text-slate-300">MXN</span>
+              </div>
+              <p class="mt-1 text-xs text-slate-400">
+                Cobro {{ actual.tipoCobro }} · Duración: {{ actual.duracion }}
+              </p>
+            </div>
+
+            <!-- Ficha técnica del servicio -->
+            <dl class="mt-5 space-y-3 text-sm">
+              <div class="flex items-center justify-between rounded-lg bg-white/[0.03] px-3.5 py-2.5">
+                <dt class="text-slate-400">Capacidad / Cupo</dt>
+                <dd class="font-semibold text-white">{{ actual.capacidad }}</dd>
+              </div>
+
+              <div class="flex items-center justify-between rounded-lg bg-white/[0.03] px-3.5 py-2.5">
+                <dt class="text-slate-400">Duración del plan</dt>
+                <dd class="font-semibold text-white">{{ actual.duracion }}</dd>
+              </div>
+
+              <div class="flex items-center justify-between rounded-lg bg-white/[0.03] px-3.5 py-2.5">
+                <dt class="text-slate-400">Garantía</dt>
+                <dd class="font-semibold text-emerald-400">
+                  {{ actual.garantia ?? 'Garantía 25 dias ' }}
+                </dd>
+              </div>
+            </dl>
+
+            <!-- Botón de acción hacia Grupos -->
+            <a
+              routerLink="/grupos"
+              class="mt-6 block w-full rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-4 py-3 text-center text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition hover:from-indigo-500 hover:to-violet-500 active:scale-[0.98]">
+              Solicitar {{ actual.nombre }}
+            </a>
+          </div>
+        }
+      </aside>
+
     </div>
-
-    <section aria-labelledby="catalog-title">
-      <div class="mb-5 flex items-end justify-between gap-4">
-        <div>
-          <h2 id="catalog-title" class="text-2xl font-bold text-white">Explora plataformas</h2>
-          <p class="mt-1 text-sm text-slate-400">Tarifas y disponibilidad mostradas como ejemplo.</p>
-        </div>
-        <a routerLink="/grupos" class="hidden text-sm font-semibold text-cyan-300 hover:text-cyan-200 sm:inline">Ver todos los grupos →</a>
-      </div>
-
-      <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        <article class="overflow-hidden rounded-3xl border border-rose-400/20 bg-gradient-to-br from-rose-500/15 to-slate-900 p-6">
-          <div class="flex items-center justify-between">
-            <span class="rounded-full bg-rose-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-rose-300">Series y películas</span>
-            <span class="text-xs font-semibold text-emerald-300">3 grupos abiertos</span>
-          </div>
-          <h3 class="mt-7 text-2xl font-black text-white">Netflix</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-300">Planes compartidos para disfrutar películas y series en familia.</p>
-          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$55 MXN</strong></p>
-            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
-          </div>
-        </article>
-
-        <article class="overflow-hidden rounded-3xl border border-sky-400/20 bg-gradient-to-br from-sky-500/15 to-slate-900 p-6">
-          <div class="flex items-center justify-between">
-            <span class="rounded-full bg-sky-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-sky-300">Series y deportes</span>
-            <span class="text-xs font-semibold text-emerald-300">2 grupos abiertos</span>
-          </div>
-          <h3 class="mt-7 text-2xl font-black text-white">Prime Video</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-300">Encuentra un espacio disponible y comparte el pago mensual.</p>
-          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$50 MXN</strong></p>
-            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
-          </div>
-        </article>
-
-        <article class="overflow-hidden rounded-3xl border border-indigo-400/20 bg-gradient-to-br from-indigo-500/15 to-slate-900 p-6">
-          <div class="flex items-center justify-between">
-            <span class="rounded-full bg-indigo-400/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-indigo-300">Disney, Pixar y más</span>
-            <span class="text-xs font-semibold text-emerald-300">3 grupos abiertos</span>
-          </div>
-          <h3 class="mt-7 text-2xl font-black text-white">Disney+</h3>
-          <p class="mt-2 text-sm leading-6 text-slate-300">Opciones para compartir perfiles y controlar los gastos del grupo.</p>
-          <div class="mt-6 flex items-center justify-between border-t border-white/10 pt-4">
-            <p class="text-sm text-slate-400">Cuotas desde <strong class="text-white">$45 MXN</strong></p>
-            <a routerLink="/grupos" class="text-sm font-bold text-cyan-300 hover:text-cyan-200">Ver grupos</a>
-          </div>
-        </article>
-      </div>
-    </section>
   </div>
 </section>
