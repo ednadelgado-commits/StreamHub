@@ -5,6 +5,8 @@ import { Grupos } from './components/grupos/grupos';
 import { Inicio } from './components/inicio/inicio';
 import { Perfil } from './components/perfil/perfil';
 import { Solicitudes } from './components/solicitudes/solicitudes';
+import { InicioSesion } from './components/inicio-sesion/inicio-sesion';
+import { Registro } from './components/registro/registro';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', component: Inicio },
@@ -14,5 +16,7 @@ export const routes: Routes = [
   { path: 'finanzas', component: Finanzas },
   { path: 'administrador', component: Admin },
   { path: 'perfil', component: Perfil },
+  { path: 'inicio-sesion', component: InicioSesion},
+  { path: 'registro',component: Registro},  
   { path: '**', redirectTo: '' },
 ];

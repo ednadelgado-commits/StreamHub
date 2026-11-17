@@ -1,0 +1,109 @@
+<div class="min-h-screen bg-[#050817] flex items-center justify-center px-5 py-10">
+
+    <div class="w-full max-w-md">
+
+        <!-- LOGOTIPO -->
+        <div class="text-center mb-8">
+
+            <div class="w-16 h-16 mx-auto rounded-2xl
+                  bg-gradient-to-br from-violet-500 to-blue-500
+                  flex items-center justify-center shadow-lg">
+
+                <span class="text-3xl font-extrabold text-white">S</span>
+
+            </div>
+
+            <h1 class="text-3xl font-extrabold text-white mt-4">
+                Stream<span class="text-violet-400">Hub</span>
+            </h1>
+
+            <p class="text-slate-400 text-sm mt-2">
+                Tu entretenimiento, en un solo lugar
+            </p>
+
+        </div>
+
+        <!-- FORMULARIO -->
+        <div class="bg-[#10172a] border border-violet-400/20
+                rounded-3xl p-8 shadow-2xl">
+
+            <h2 class="text-2xl font-bold text-white mb-2">
+                ¡Bienvenido de nuevo!
+            </h2>
+
+            <p class="text-slate-400 text-sm mb-7">
+                Ingresa tus datos para continuar.
+            </p>
+
+            <form (ngSubmit)="iniciarSesion()">
+
+                <!-- CORREO -->
+                <div class="mb-5">
+
+                    <label class="block text-slate-300 text-sm font-semibold mb-2">
+                        Correo electrónico
+                    </label>
+
+                    <input type="email" name="correo" [(ngModel)]="correo" placeholder="ejemplo@correo.com" class="w-full bg-[#080d1d] border border-slate-700
+                   rounded-xl px-4 py-3 text-white outline-none
+                   focus:border-violet-500 transition-all">
+
+                </div>
+
+                <!-- CONTRASEÑA -->
+                <div class="mb-6">
+
+                    <label class="block text-slate-300 text-sm font-semibold mb-2">
+                        Contraseña
+                    </label>
+
+                    <input type="password" name="contrasena" [(ngModel)]="contrasena"
+                        placeholder="Ingresa tu contraseña" class="w-full bg-[#080d1d] border border-slate-700
+                   rounded-xl px-4 py-3 text-white outline-none
+                   focus:border-violet-500 transition-all">
+
+                </div>
+
+                <!-- MENSAJE -->
+                <p *ngIf="mensaje !== ''" class="text-center text-sm text-violet-400 mb-4">
+                    {{ mensaje }}
+                </p>
+
+                <!-- BOTÓN -->
+                <button type="submit" class="w-full py-3 rounded-xl font-bold text-white
+                 bg-gradient-to-r from-violet-600 to-blue-600
+                 hover:from-violet-500 hover:to-blue-500
+                 transition-all shadow-lg">
+                    Iniciar sesión
+                </button>
+
+            </form>
+
+            <!-- REGISTRO -->
+            <div class="text-center mt-7">
+
+                <p class="text-slate-400 text-sm">
+                    ¿Todavía no tienes una cuenta?
+                </p>
+
+                <a routerLink="/registro" class="text-violet-400 font-bold text-sm
+                  hover:text-blue-400 transition-colors">
+                    Crear una cuenta
+                </a>
+
+            </div>
+
+            <!-- REGRESAR -->
+            <div class="text-center mt-5">
+
+                <a routerLink="/" class="text-slate-500 text-sm hover:text-white">
+                    ← Regresar al catálogo
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
