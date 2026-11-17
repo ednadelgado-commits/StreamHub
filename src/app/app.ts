@@ -10,3 +10,4 @@ import { Navbar } from './components/navbar/navbar';
   templateUrl: './app.html',
 })
 export class App {}
+
