@@ -1,23 +1,19 @@
-
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-type EstadoPago = 'Titular' | 'Al día' | 'Pendiente';
-type AccionModal = 'aceptar' | 'rechazar' | 'expulsar' | 'detalleSolicitud' | 'detalleParticipante' | 'enviar';
+type AccionModal = 'enviar' | 'aceptar' | 'rechazar' | 'expulsar';
 
 interface Grupo {
   id: number;
   nombre: string;
   capacidad: number;
-  cuota: number;
 }
 
-interface SolicitudPendiente {
+interface Solicitud {
   id: number;
   nombre: string;
   grupoId: number;
   mensaje: string;
-  avatarUrl: string;
 }
 
 interface NuevaSolicitud {
@@ -29,11 +25,7 @@ interface NuevaSolicitud {
 interface Participante {
   id: number;
   grupoId: number;
-  iniciales: string;
   nombre: string;
-  fechaIngreso: string;
-  cuota: number;
-  estatus: EstadoPago;
   esTitular: boolean;
 }
 
@@ -44,477 +36,338 @@ interface Participante {
   styleUrl: './solicitudes.css',
 })
 export class Solicitudes {
-
-  // Datos de demostración. Más adelante se pueden conectar al servicio del módulo 2.
+  // Datos temporales de demostración.
   grupos: Grupo[] = [
-    { id: 1, nombre: 'Prime Video', capacidad: 3, cuota: 50 },
-    { id: 2, nombre: 'Disney+ 4K', capacidad: 4, cuota: 65 },
+    { id: 1, nombre: 'Prime Video', capacidad: 3 },
+    { id: 2, nombre: 'Disney+ 4K', capacidad: 4 },
   ];
 
-  solicitudesPendientes: SolicitudPendiente[] = [
-    {
-      id: 1,
-      nombre: 'Juan Pablo Morales',
-      grupoId: 1,
-      mensaje: 'Hola Carlos, tengo la transferencia lista para cada inicio de mes.',
-      avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop',
-    },
-    {
-      id: 2,
-      nombre: 'Sofía Herrera',
-      grupoId: 2,
-      mensaje: 'Busco plaza a largo plazo para mi televisor.',
-      avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
-    },
+  solicitudesPendientes: Solicitud[] = [
+    { id: 1, nombre: 'Juan Pablo Morales', grupoId: 1, mensaje: 'Hola Carlos, tengo la transferencia lista para cada inicio de mes.' },
+    { id: 2, nombre: 'Sofía Herrera', grupoId: 2, mensaje: 'Busco plaza a largo plazo para mi televisor.' },
   ];
 
   participantes: Participante[] = [
-    { id: 1, grupoId: 1, iniciales: 'CM', nombre: 'Carlos Mendoza', fechaIngreso: '15/Ene/2026', cuota: 50, estatus: 'Titular', esTitular: true },
-    { id: 2, grupoId: 1, iniciales: 'LR', nombre: 'Luis Rivas', fechaIngreso: '02/Feb/2026', cuota: 50, estatus: 'Al día', esTitular: false },
-    { id: 3, grupoId: 2, iniciales: 'CM', nombre: 'Carlos Mendoza', fechaIngreso: '15/Ene/2026', cuota: 65, estatus: 'Titular', esTitular: true },
-    { id: 4, grupoId: 2, iniciales: 'AH', nombre: 'Ana Hernández', fechaIngreso: '08/Mar/2026', cuota: 65, estatus: 'Al día', esTitular: false },
-    { id: 5, grupoId: 2, iniciales: 'RP', nombre: 'Raúl Pérez', fechaIngreso: '12/Mar/2026', cuota: 65, estatus: 'Pendiente', esTitular: false },
+    { id: 1, grupoId: 1, nombre: 'Carlos Mendoza', esTitular: true },
+    { id: 2, grupoId: 1, nombre: 'Luis Rivas', esTitular: false },
+    { id: 3, grupoId: 2, nombre: 'Carlos Mendoza', esTitular: true },
+    { id: 4, grupoId: 2, nombre: 'Ana Hernández', esTitular: false },
+    { id: 5, grupoId: 2, nombre: 'Raúl Pérez', esTitular: false },
   ];
 
-  // STREAM-4: Envío de solicitudes
+  // Campos del formulario.
   nombreSolicitante = '';
   grupoParaSolicitudId = 1;
   mensajeSolicitud = '';
 
-  solicitudPorEnviar: NuevaSolicitud | null = null;
-
-  // Filtros y selección de grupos
+  // Búsqueda y grupo seleccionado.
   grupoSeleccionadoId = 1;
   busquedaSolicitudes = '';
   filtroGrupoSolicitud = 'todos';
-  busquedaParticipantes = '';
-  filtroPago = 'todos';
 
-  // Control de modales y avisos
+  // Modal y mensajes.
   modalAbierto = false;
   accionModal: AccionModal | null = null;
-  solicitudSeleccionada: SolicitudPendiente | null = null;
+  solicitudSeleccionada: Solicitud | null = null;
   participanteSeleccionado: Participante | null = null;
+  solicitudPorEnviar: NuevaSolicitud | null = null;
   aviso = '';
   tipoAviso: 'exito' | 'error' = 'exito';
 
-  // Obtener el grupo seleccionado
-  get grupoSeleccionado(): Grupo | undefined {
-    return this.grupos.find((grupo) => grupo.id === this.grupoSeleccionadoId);
+  // Contadores para no repetir identificadores.
+  ultimoIdSolicitud = 0;
+  ultimoIdParticipante = 0;
+
+  constructor() {
+    for (const solicitud of this.solicitudesPendientes) {
+      if (solicitud.id > this.ultimoIdSolicitud) {
+        this.ultimoIdSolicitud = solicitud.id;
+      }
+    }
+    for (const participante of this.participantes) {
+      if (participante.id > this.ultimoIdParticipante) {
+        this.ultimoIdParticipante = participante.id;
+      }
+    }
   }
 
-  // Buscar y filtrar solicitudes pendientes
-  get solicitudesFiltradas(): SolicitudPendiente[] {
-    const texto = this.normalizar(this.busquedaSolicitudes);
+  // Buscar el grupo seleccionado.
+  get grupoSeleccionado(): Grupo | undefined {
+    for (const grupo of this.grupos) {
+      if (grupo.id === this.grupoSeleccionadoId) {
+        return grupo;
+      }
+    }
+    return undefined;
+  }
 
-    return this.solicitudesPendientes.filter((solicitud) => {
+  // Buscar solicitudes por texto y grupo.
+  get solicitudesFiltradas(): Solicitud[] {
+    const resultado: Solicitud[] = [];
+    const texto = this.busquedaSolicitudes.toLowerCase().trim();
+
+    for (const solicitud of this.solicitudesPendientes) {
+      const nombre = solicitud.nombre.toLowerCase();
+      const grupo = this.nombreGrupo(solicitud.grupoId).toLowerCase();
+      const mensaje = solicitud.mensaje.toLowerCase();
+
+      const coincideTexto = nombre.includes(texto) || grupo.includes(texto) || mensaje.includes(texto);
       const coincideGrupo = this.filtroGrupoSolicitud === 'todos' ||
         solicitud.grupoId === Number(this.filtroGrupoSolicitud);
 
-      const contenido = this.normalizar(
-        `${solicitud.nombre} ${this.nombreGrupo(solicitud.grupoId)} ${solicitud.mensaje}`
-      );
-
-      return coincideGrupo && contenido.includes(texto);
-    });
+      if (coincideTexto && coincideGrupo) {
+        resultado.push(solicitud);
+      }
+    }
+    return resultado;
   }
 
-  // Buscar y filtrar participantes activos
+  // Mostrar integrantes del grupo seleccionado.
   get participantesFiltrados(): Participante[] {
-    const texto = this.normalizar(this.busquedaParticipantes);
-
-    return this.participantes.filter((participante) => {
-      const coincideGrupo = participante.grupoId === this.grupoSeleccionadoId;
-      const coincideNombre = this.normalizar(participante.nombre).includes(texto);
-      const coincidePago = this.filtroPago === 'todos' ||
-        participante.estatus === this.filtroPago;
-
-      return coincideGrupo && coincideNombre && coincidePago;
-    });
+    const resultado: Participante[] = [];
+    for (const participante of this.participantes) {
+      if (participante.grupoId === this.grupoSeleccionadoId) {
+        resultado.push(participante);
+      }
+    }
+    return resultado;
   }
 
-  // Total de participantes del grupo seleccionado
   get totalParticipantesGrupo(): number {
-    return this.participantes.filter(
-      (participante) => participante.grupoId === this.grupoSeleccionadoId
-    ).length;
+    return this.ocupados(this.grupoSeleccionadoId);
   }
 
-  // Plazas disponibles del grupo seleccionado
   get plazasDisponibles(): number {
-    return Math.max(
-      0,
-      (this.grupoSeleccionado?.capacidad ?? 0) - this.totalParticipantesGrupo
-    );
+    return this.plazasDeGrupo(this.grupoSeleccionadoId);
   }
 
-  // Obtener nombre de la plataforma
   nombreGrupo(grupoId: number): string {
-    return this.grupos.find(
-      (grupo) => grupo.id === grupoId
-    )?.nombre ?? 'Grupo no disponible';
+    for (const grupo of this.grupos) {
+      if (grupo.id === grupoId) {
+        return grupo.nombre;
+      }
+    }
+    return 'Grupo no disponible';
   }
 
-  // Contar participantes de un grupo
   ocupados(grupoId: number): number {
-    return this.participantes.filter(
-      (participante) => participante.grupoId === grupoId
-    ).length;
+    let total = 0;
+    for (const participante of this.participantes) {
+      if (participante.grupoId === grupoId) {
+        total++;
+      }
+    }
+    return total;
   }
 
-  // Mostrar cantidades en pesos mexicanos
-  moneda(cantidad: number): string {
-    return new Intl.NumberFormat('es-MX', {
-      style: 'currency',
-      currency: 'MXN'
-    }).format(cantidad);
+  plazasDeGrupo(grupoId: number): number {
+    for (const grupo of this.grupos) {
+      if (grupo.id === grupoId) {
+        const libres = grupo.capacidad - this.ocupados(grupoId);
+        if (libres > 0) {
+          return libres;
+        }
+        return 0;
+      }
+    }
+    return 0;
   }
 
-  // Cambiar el grupo de la tabla
+  obtenerIniciales(nombre: string): string {
+    const palabras = nombre.trim().split(' ');
+    let iniciales = palabras[0].charAt(0);
+    if (palabras.length > 1) {
+      iniciales = iniciales + palabras[1].charAt(0);
+    }
+    return iniciales.toUpperCase();
+  }
+
   cambiarGrupo(grupoId: string): void {
     this.grupoSeleccionadoId = Number(grupoId);
-    this.busquedaParticipantes = '';
-    this.filtroPago = 'todos';
   }
 
-  // ==================================================
-  // STREAM-4: DESARROLLAR EL ENVÍO DE SOLICITUDES
-  // ==================================================
+  // Comprobar campos, cupo y usuarios repetidos.
+  // Devuelve un mensaje si hay error, o '' si está correcto.
+  validarSolicitud(nombre: string, grupoId: number, mensaje: string): string {
+    if (nombre.trim() === '' || mensaje.trim() === '') {
+      return 'Completa el nombre y el mensaje.';
+    }
 
-  // Validar los datos antes de enviar una solicitud
+    let existeGrupo = false;
+    for (const grupo of this.grupos) {
+      if (grupo.id === grupoId) {
+        existeGrupo = true;
+      }
+    }
+    if (!existeGrupo) {
+      return 'El grupo seleccionado no existe.';
+    }
+    if (this.plazasDeGrupo(grupoId) === 0) {
+      return 'Este grupo no tiene plazas disponibles.';
+    }
+
+    const nombreComparar = nombre.trim().toLowerCase();
+    for (const solicitud of this.solicitudesPendientes) {
+      if (solicitud.grupoId === grupoId && solicitud.nombre.trim().toLowerCase() === nombreComparar) {
+        return 'Ya existe una solicitud pendiente de este usuario.';
+      }
+    }
+    for (const participante of this.participantes) {
+      if (participante.grupoId === grupoId && participante.nombre.trim().toLowerCase() === nombreComparar) {
+        return 'Este usuario ya pertenece al grupo.';
+      }
+    }
+    return '';
+  }
+
+  // Preparar los datos y abrir el modal de envío.
   prepararEnvio(): void {
-
     const nombre = this.nombreSolicitante.trim();
     const mensaje = this.mensajeSolicitud.trim();
     const grupoId = Number(this.grupoParaSolicitudId);
+    const error = this.validarSolicitud(nombre, grupoId, mensaje);
 
-    // Verificar que los campos no estén vacíos
-    if (!nombre || !mensaje) {
-      this.mostrarAviso(
-        'Completa todos los campos para enviar la solicitud.',
-        'error'
-      );
+    if (error !== '') {
+      this.mostrarAviso(error, 'error');
       return;
     }
 
-    // Verificar que el grupo exista
-    const grupo = this.grupos.find(
-      (item) => item.id === grupoId
-    );
-
-    if (!grupo) {
-      this.mostrarAviso(
-        'El grupo seleccionado no existe.',
-        'error'
-      );
-      return;
-    }
-
-    // Verificar las plazas disponibles
-    if (this.ocupados(grupo.id) >= grupo.capacidad) {
-      this.mostrarAviso(
-        'No puedes enviar la solicitud porque el grupo está lleno.',
-        'error'
-      );
-      return;
-    }
-
-    // Evitar solicitudes pendientes duplicadas
-    const solicitudExiste = this.solicitudesPendientes.some(
-      (solicitud) =>
-        solicitud.grupoId === grupoId &&
-        this.normalizar(solicitud.nombre) === this.normalizar(nombre)
-    );
-
-    if (solicitudExiste) {
-      this.mostrarAviso(
-        'Este usuario ya tiene una solicitud pendiente para el grupo.',
-        'error'
-      );
-      return;
-    }
-
-    // Verificar que el usuario no pertenezca al grupo
-    const yaEsParticipante = this.participantes.some(
-      (participante) =>
-        participante.grupoId === grupoId &&
-        this.normalizar(participante.nombre) === this.normalizar(nombre)
-    );
-
-    if (yaEsParticipante) {
-      this.mostrarAviso(
-        'Este usuario ya pertenece al grupo seleccionado.',
-        'error'
-      );
-      return;
-    }
-
-    // Guardar los datos temporalmente
-    this.solicitudPorEnviar = {
-      nombre: nombre,
-      grupoId: grupoId,
-      mensaje: mensaje
-    };
-
-    // Abrir el modal para confirmar el envío
+    this.solicitudPorEnviar = { nombre: nombre, grupoId: grupoId, mensaje: mensaje };
     this.solicitudSeleccionada = null;
     this.participanteSeleccionado = null;
     this.accionModal = 'enviar';
     this.modalAbierto = true;
   }
 
-  // Generar identificador para una nueva solicitud
-  private siguienteIdSolicitud(): number {
-    return Math.max(
-      0,
-      ...this.solicitudesPendientes.map((solicitud) => solicitud.id)
-    ) + 1;
+  abrirSolicitud(accion: 'aceptar' | 'rechazar', id: number): void {
+    for (const solicitud of this.solicitudesPendientes) {
+      if (solicitud.id === id) {
+        this.solicitudSeleccionada = solicitud;
+        this.participanteSeleccionado = null;
+        this.solicitudPorEnviar = null;
+        this.accionModal = accion;
+        this.modalAbierto = true;
+        return;
+      }
+    }
   }
 
-  // ==================================================
-  // MODALES DE SOLICITUDES Y PARTICIPANTES
-  // ==================================================
-
-  // Abrir modal para aceptar, rechazar o ver solicitudes
-  abrirSolicitud(accion: 'aceptar' | 'rechazar' | 'detalleSolicitud', id: number): void {
-    const solicitud = this.solicitudesPendientes.find(
-      (item) => item.id === id
-    );
-
-    if (!solicitud) return;
-
-    this.solicitudSeleccionada = solicitud;
-    this.participanteSeleccionado = null;
-    this.accionModal = accion;
-    this.modalAbierto = true;
+  abrirParticipante(accion: 'expulsar', id: number): void {
+    for (const participante of this.participantes) {
+      if (participante.id === id && !participante.esTitular) {
+        this.participanteSeleccionado = participante;
+        this.solicitudSeleccionada = null;
+        this.solicitudPorEnviar = null;
+        this.accionModal = accion;
+        this.modalAbierto = true;
+        return;
+      }
+    }
   }
 
-  // Abrir modal para expulsar o consultar participantes
-  abrirParticipante(accion: 'expulsar' | 'detalleParticipante', id: number): void {
-    const participante = this.participantes.find(
-      (item) => item.id === id
-    );
-
-    if (!participante) return;
-
-    // El administrador no puede expulsarse
-    if (accion === 'expulsar' && participante.esTitular) return;
-
-    this.participanteSeleccionado = participante;
-    this.solicitudSeleccionada = null;
-    this.accionModal = accion;
-    this.modalAbierto = true;
-  }
-
-  // Cerrar modal y limpiar selecciones
   cerrarModal(): void {
     this.modalAbierto = false;
     this.accionModal = null;
     this.solicitudSeleccionada = null;
     this.participanteSeleccionado = null;
-
-    // Limpiar datos temporales del envío
     this.solicitudPorEnviar = null;
   }
 
-  // Cerrar modal al presionar Escape
+  // El modal también se cierra al presionar Escape.
   @HostListener('document:keydown.escape')
   cerrarConEscape(): void {
-    if (this.modalAbierto) this.cerrarModal();
+    if (this.modalAbierto) {
+      this.cerrarModal();
+    }
   }
 
-  // ==================================================
-  // CONFIRMAR ACCIONES
-  // ==================================================
-
+  // El botón de confirmación realiza la acción elegida.
   confirmarAccion(): void {
-
-    // STREAM-4: Confirmar el envío de una solicitud
     if (this.accionModal === 'enviar' && this.solicitudPorEnviar) {
-
       const nueva = this.solicitudPorEnviar;
-
-      const grupo = this.grupos.find(
-        (item) => item.id === nueva.grupoId
-      );
-
-      // Comprobar nuevamente que la solicitud sea válida
-      const solicitudExiste = this.solicitudesPendientes.some(
-        (solicitud) =>
-          solicitud.grupoId === nueva.grupoId &&
-          this.normalizar(solicitud.nombre) === this.normalizar(nueva.nombre)
-      );
-
-      const yaEsParticipante = this.participantes.some(
-        (participante) =>
-          participante.grupoId === nueva.grupoId &&
-          this.normalizar(participante.nombre) === this.normalizar(nueva.nombre)
-      );
-
-      if (
-        !grupo ||
-        this.ocupados(nueva.grupoId) >= grupo.capacidad ||
-        solicitudExiste ||
-        yaEsParticipante
-      ) {
-        this.mostrarAviso(
-          'No se puede registrar la solicitud. Verifica las plazas y los datos.',
-          'error'
-        );
+      const error = this.validarSolicitud(nueva.nombre, nueva.grupoId, nueva.mensaje);
+      if (error !== '') {
+        this.mostrarAviso(error, 'error');
         this.cerrarModal();
         return;
       }
 
-      // Agregar la solicitud al arreglo de pendientes
+      this.ultimoIdSolicitud++;
       this.solicitudesPendientes.push({
-        id: this.siguienteIdSolicitud(),
+        id: this.ultimoIdSolicitud,
         nombre: nueva.nombre,
         grupoId: nueva.grupoId,
         mensaje: nueva.mensaje,
-        avatarUrl: ''
       });
-
-      // Limpiar los campos del formulario
       this.nombreSolicitante = '';
       this.mensajeSolicitud = '';
-
-      // Actualizar búsqueda para mostrar todas las solicitudes
       this.busquedaSolicitudes = '';
       this.filtroGrupoSolicitud = 'todos';
+      this.mostrarAviso('Solicitud de ' + nueva.nombre + ' enviada correctamente.');
 
-      // Mostrar mensaje de éxito
-      this.mostrarAviso(
-        `Solicitud de ${nueva.nombre} enviada correctamente a ${grupo.nombre}.`
-      );
-
-      this.cerrarModal();
-      return;
-    }
-
-    // STREAM-5: Aceptar solicitudes
-    if (this.accionModal === 'aceptar' && this.solicitudSeleccionada) {
-
+    } else if (this.accionModal === 'aceptar' && this.solicitudSeleccionada) {
       const solicitud = this.solicitudSeleccionada;
-      const grupo = this.grupos.find(
-        (item) => item.id === solicitud.grupoId
-      );
-
-      if (!grupo || this.ocupados(grupo.id) >= grupo.capacidad) {
-        this.mostrarAviso(
-          'No se puede aceptar: el grupo ya no tiene plazas disponibles.',
-          'error'
-        );
+      if (this.plazasDeGrupo(solicitud.grupoId) === 0) {
+        this.mostrarAviso('No hay plazas disponibles.', 'error');
         this.cerrarModal();
         return;
       }
-
-      // Incorporar participante al grupo
+      // Evitar aceptar dos veces a la misma persona.
+      for (const participante of this.participantes) {
+        if (participante.grupoId === solicitud.grupoId &&
+            participante.nombre.trim().toLowerCase() === solicitud.nombre.trim().toLowerCase()) {
+          this.mostrarAviso('Este usuario ya pertenece al grupo.', 'error');
+          this.cerrarModal();
+          return;
+        }
+      }
+      this.ultimoIdParticipante++;
       this.participantes.push({
-        id: this.siguienteId(),
-        grupoId: grupo.id,
-        iniciales: this.obtenerIniciales(solicitud.nombre),
+        id: this.ultimoIdParticipante,
+        grupoId: solicitud.grupoId,
         nombre: solicitud.nombre,
-        fechaIngreso: new Intl.DateTimeFormat('es-MX', {
-          dateStyle: 'medium'
-        }).format(new Date()),
-        cuota: grupo.cuota,
-        estatus: 'Pendiente',
         esTitular: false,
       });
-
-      // Quitar solicitud de las pendientes
       this.quitarSolicitud(solicitud.id);
-
-      // Mostrar el grupo al que ingresó
-      this.grupoSeleccionadoId = grupo.id;
-      this.busquedaParticipantes = '';
-      this.filtroPago = 'todos';
-
-      this.mostrarAviso(
-        `${solicitud.nombre} fue agregado a ${grupo.nombre}. Su pago queda pendiente.`
-      );
+      this.grupoSeleccionadoId = solicitud.grupoId;
+      this.mostrarAviso(solicitud.nombre + ' fue aceptado en ' + this.nombreGrupo(solicitud.grupoId) + '.');
 
     } else if (this.accionModal === 'rechazar' && this.solicitudSeleccionada) {
-
-      // STREAM-5: Rechazar solicitudes
       const solicitud = this.solicitudSeleccionada;
-
       this.quitarSolicitud(solicitud.id);
-
-      this.mostrarAviso(
-        `Solicitud de ${solicitud.nombre} rechazada.`
-      );
+      this.mostrarAviso('Solicitud de ' + solicitud.nombre + ' rechazada.');
 
     } else if (this.accionModal === 'expulsar' && this.participanteSeleccionado) {
-
-      // STREAM-6: Expulsar participantes
       const participante = this.participanteSeleccionado;
-
-      // El administrador nunca puede expulsarse
       if (!participante.esTitular) {
-
-        this.participantes = this.participantes.filter(
-          (item) => item.id !== participante.id
-        );
-
-        this.mostrarAviso(
-          `${participante.nombre} fue retirado del grupo.`
-        );
+        const restantes: Participante[] = [];
+        for (const persona of this.participantes) {
+          if (persona.id !== participante.id) {
+            restantes.push(persona);
+          }
+        }
+        this.participantes = restantes;
+        this.mostrarAviso(participante.nombre + ' fue retirado del grupo.');
       }
     }
-
     this.cerrarModal();
   }
 
-  // ==================================================
-  // MÉTODOS AUXILIARES
-  // ==================================================
-
-  // Cerrar las notificaciones
   cerrarAviso(): void {
     this.aviso = '';
   }
 
-  // Quitar una solicitud de las pendientes
-  private quitarSolicitud(id: number): void {
-    this.solicitudesPendientes = this.solicitudesPendientes.filter(
-      (solicitud) => solicitud.id !== id
-    );
+  quitarSolicitud(id: number): void {
+    const restantes: Solicitud[] = [];
+    for (const solicitud of this.solicitudesPendientes) {
+      if (solicitud.id !== id) {
+        restantes.push(solicitud);
+      }
+    }
+    this.solicitudesPendientes = restantes;
   }
 
-  // Obtener las iniciales de un participante
-  private obtenerIniciales(nombre: string): string {
-    return nombre
-      .trim()
-      .split(/\s+/)
-      .slice(0, 2)
-      .map((parte) => parte[0])
-      .join('')
-      .toUpperCase();
-  }
-
-  // Generar ID para los participantes
-  private siguienteId(): number {
-    return Math.max(
-      0,
-      ...this.participantes.map((item) => item.id)
-    ) + 1;
-  }
-
-  // Normalizar textos para las búsquedas
-  private normalizar(texto: string): string {
-    return texto
-      .toLocaleLowerCase('es-MX')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .trim();
-  }
-
-  // Mostrar mensajes de éxito o error
-  private mostrarAviso(
-    mensaje: string,
-    tipo: 'exito' | 'error' = 'exito'
-  ): void {
+  mostrarAviso(mensaje: string, tipo: 'exito' | 'error' = 'exito'): void {
     this.aviso = mensaje;
     this.tipoAviso = tipo;
   }
