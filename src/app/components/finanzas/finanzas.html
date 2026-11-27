@@ -1,65 +1,257 @@
-<section class="min-h-screen bg-slate-950 text-slate-100">
-  <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-    <header class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-      <div>
-        <p class="mb-2 text-xs font-bold uppercase tracking-[0.24em] text-cyan-400">Módulo 04 · Finanzas</p>
-        <h1 class="text-3xl font-black text-white sm:text-4xl">Pagos y control de gastos</h1>
-        <p class="mt-3 text-slate-400">Consulta cuotas, próximos vencimientos y movimientos compartidos.</p>
-      </div>
-      <span class="w-fit rounded-full border border-amber-400/20 bg-amber-400/10 px-3 py-1.5 text-xs font-semibold text-amber-200">Movimientos de ejemplo</span>
-    </header>
+<!-- FINANZAS: no incluye navbar, la integra el lider en app.html -->
+<section class="fin-page animate__animated animate__fadeIn">
+  <div class="fin-layout">
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-      <article class="rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/10 to-slate-900 p-5">
-        <p class="text-sm text-slate-400">Total de cuotas del mes</p>
-        <p class="mt-3 text-3xl font-black text-white">$1,250 <span class="text-sm font-semibold text-slate-400">MXN</span></p>
-        <p class="mt-2 text-xs text-slate-500">25 pagos registrados · ejemplo</p>
-      </article>
-      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5">
-        <p class="text-sm text-slate-400">Pagos por confirmar</p>
-        <p class="mt-3 text-3xl font-black text-amber-200">3</p>
-        <p class="mt-2 text-xs text-slate-500">Revisa los comprobantes pendientes</p>
-      </article>
-      <article class="rounded-2xl border border-white/10 bg-slate-900 p-5 sm:col-span-2 xl:col-span-1">
-        <div class="flex items-center justify-between gap-4">
-          <div>
-            <p class="text-sm text-slate-400">Presupuesto compartido</p>
-            <p class="mt-3 text-3xl font-black text-white">68%</p>
+    <!-- COLUMNA PRINCIPAL -->
+    <main class="fin-main">
+      <header class="fin-hero">
+        <div class="fin-hero-copy">
+          <div class="fin-hero-heading">
+            <svg class="fin-title-icon" viewBox="0 0 50 50" fill="none" aria-hidden="true">
+              <rect x="5" y="29" width="10" height="16" rx="3" fill="#A76BFA"/>
+              <rect x="20" y="18" width="10" height="27" rx="3" fill="#864DFA"/>
+              <rect x="35" y="7" width="10" height="38" rx="3" fill="#6C63FF"/>
+            </svg>
+            <div>
+              <span class="fin-eyebrow">STREAMHUB / CENTRO FINANCIERO</span>
+              <h1>Finanzas</h1>
+            </div>
           </div>
-          <span class="grid h-12 w-12 place-items-center rounded-full bg-emerald-400/10 text-xl text-emerald-300">✓</span>
+          <p>Controla tus ingresos, gastos y pagos de grupos de streaming.</p>
+          <button class="fin-demo-toggle" type="button" (click)="cambiarVistaDemo()">
+            <span class="fin-demo-dot"></span>
+            {{ vistaDemo ? 'Desactivar vista demo' : 'Ver diseño con datos demo' }}
+          </button>
         </div>
-        <div class="mt-4 h-2 overflow-hidden rounded-full bg-slate-800"><div class="h-full w-2/3 rounded-full bg-emerald-400"></div></div>
-      </article>
-    </div>
 
-    <section class="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-slate-900" aria-labelledby="payments-title">
-      <div class="border-b border-white/10 px-5 py-4">
-        <h2 id="payments-title" class="font-bold text-white">Próximos movimientos</h2>
-        <p class="mt-1 text-sm text-slate-400">Calendario de muestra para tus suscripciones.</p>
+        <!-- Escena cinematográfica creada con SVG, sin descargar imágenes -->
+        <svg class="fin-hero-art" viewBox="0 0 560 240" fill="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="fin-grad" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#B36CFF"/><stop offset="0.55" stop-color="#6753FF"/><stop offset="1" stop-color="#19E3D2"/>
+            </linearGradient>
+            <linearGradient id="fin-screen" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#301565"/><stop offset="1" stop-color="#071B4B"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 143C95 16 192 211 294 75S449 34 560 74" stroke="#6C63FF" stroke-width="15" opacity=".3"/>
+          <path d="M0 143C95 16 192 211 294 75S449 34 560 74" stroke="#A76BFA" stroke-width="3" opacity=".9"/>
+          <g transform="translate(268 23) rotate(-5 112 85)">
+            <rect x="0" y="0" width="230" height="148" rx="19" fill="url(#fin-screen)" stroke="url(#fin-grad)" stroke-width="4"/>
+            <path d="M88 37L156 74L88 111V37Z" stroke="url(#fin-grad)" stroke-width="9" stroke-linejoin="round"/>
+            <path d="M115 150V171M74 174H157" stroke="#8971ED" stroke-width="7" stroke-linecap="round"/>
+          </g>
+          <g transform="translate(158 105) rotate(-10)">
+            <path d="M0 19H85L76 112H13L0 19Z" fill="#F7F4FF" stroke="#D9CCFF" stroke-width="2"/>
+            <path d="M14 19H29L36 112H25Z" fill="#E75C94"/>
+            <path d="M49 19H64L58 112H47Z" fill="#E75C94"/>
+            <circle cx="10" cy="18" r="12" fill="#FFCC78"/><circle cx="31" cy="7" r="13" fill="#FFE6A4"/>
+            <circle cx="53" cy="11" r="13" fill="#FFD27D"/><circle cx="74" cy="17" r="11" fill="#FFE6A4"/>
+            <circle cx="43" cy="-3" r="10" fill="#FFF1BA"/>
+          </g>
+          <path d="M0 226C72 165 130 183 198 211C267 158 353 170 421 204C480 174 532 192 560 216V240H0V226Z" fill="#0A1234"/>
+          <path d="M0 232C65 199 137 206 196 228M202 229C289 198 369 207 426 229M431 228C476 204 527 213 560 229" stroke="#7744D8" stroke-width="4" opacity=".7"/>
+        </svg>
+      </header>
+
+      @if (vistaDemo) {
+        <p class="fin-info fin-info-demo">Vista de demostración: los datos mostrados son ejemplos y no están guardados como pagos reales.</p>
+      }
+      @if (enviado) {
+        <p class="fin-info fin-info-ok">✓ El formulario fue enviado. Tu movimiento se registró correctamente.</p>
+      }
+
+      <!-- CUATRO ESTADÍSTICAS -->
+      <section class="fin-metrics" aria-label="Resumen de finanzas">
+        <article class="fin-card fin-card-featured">
+          <div class="fin-metric-top"><span class="fin-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="3"/><path d="M5 6V4h13"/><circle cx="17" cy="12.5" r="1.5"/></svg></span><span>Ingresos totales</span></div>
+          <strong>$ {{ dinero(ingresos) }}</strong>
+          <small>Completados · MXN</small>
+        </article>
+        <article class="fin-card">
+          <div class="fin-metric-top"><span class="fin-icon amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg></span><span>Pagos pendientes</span></div>
+          <strong>{{ pendientes.length }}</strong>
+          <small>Por confirmar</small>
+        </article>
+        <article class="fin-card">
+          <div class="fin-metric-top"><span class="fin-icon teal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 17 6-6 4 4 8-9M15 6h6v6"/></svg></span><span>Ganancia del mes</span></div>
+          <strong [class.fin-negative]="ganancia < 0">$ {{ dinero(ganancia) }}</strong>
+          <small>Ingresos menos gastos · MXN</small>
+        </article>
+        <article class="fin-card">
+          <div class="fin-metric-top"><span class="fin-icon lilac"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></span><span>Movimientos</span></div>
+          <strong>{{ registrosDelMes.length }}</strong>
+          <small>Registrados en el período</small>
+        </article>
+      </section>
+
+      <!-- MOVIMIENTOS + GRÁFICA -->
+      <div class="fin-middle">
+        <section class="fin-panel fin-history">
+          <div class="fin-panel-header">
+            <h2><span class="fin-panel-symbol">▤</span> Movimientos recientes</h2>
+            <div class="fin-filters">
+              <select aria-label="Filtrar movimientos" name="filtro" [(ngModel)]="filtro" class="fin-select">
+                <option value="Todos">Todos</option><option value="Ingreso">Ingresos</option><option value="Gasto">Gastos</option><option value="Pendiente">Pendientes</option><option value="Completado">Completados</option>
+              </select>
+            </div>
+          </div>
+          <div class="fin-table-scroll">
+            <table class="fin-table">
+              <thead><tr><th>Fecha</th><th>Concepto</th><th>Grupo / Cuenta</th><th>Monto</th><th>Estado</th></tr></thead>
+              <tbody>
+                @for (mov of historial; track mov.id) {
+                  <tr>
+                    <td>{{ mostrarFecha(mov.fecha) }}</td>
+                    <td><div class="fin-cell-service"><span class="fin-brand" [style.color]="colorServicio(mov.servicio)" [style.border-color]="colorServicio(mov.servicio)">{{ siglaServicio(mov.servicio) }}</span><span>{{ mov.concepto }}</span></div></td>
+                    <td><strong>{{ mov.servicio }}</strong><small>{{ mov.grupo || 'Sin grupo' }}</small></td>
+                    <td><span [class.fin-negative]="mov.tipo === 'Gasto'" [class.fin-positive]="mov.tipo === 'Ingreso'">{{ mov.tipo === 'Ingreso' ? '+' : '-' }}$ {{ dinero(mov.monto) }}</span></td>
+                    <td>@if (mov.estado === 'Completado') {<span class="fin-chip fin-chip-green">✓ Pagado</span>} @else {<span class="fin-chip fin-chip-amber">◷ Pendiente</span>}</td>
+                  </tr>
+                } @empty {
+                  <tr><td colspan="5" class="fin-table-empty">Aún no hay movimientos en este período. Usa «Registrar pago» o activa la vista demo.</td></tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="fin-panel fin-donut-panel">
+          <div class="fin-panel-header"><h2><span class="fin-panel-symbol">◉</span> Distribución de ingresos</h2></div>
+          <div class="fin-chart-flex">
+            <div class="fin-donut" [style.background]="grafica">
+              <div class="fin-donut-inner"><small>Ingresos</small><strong>$ {{ dinero(ingresos) }}</strong><small>MXN</small></div>
+            </div>
+            <div class="fin-legend">
+              @for (item of distribucion; track item.servicio) {
+                <div class="fin-legend-line"><span><i [style.background]="item.color"></i>{{ item.servicio }}</span><b>{{ item.porcentaje.toFixed(0) }}%</b></div>
+              } @empty {
+                <p class="fin-muted">Registra ingresos completados para ver la gráfica.</p>
+              }
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="divide-y divide-white/5">
-        <article class="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-4">
-            <div class="grid h-11 w-11 place-items-center rounded-xl bg-rose-400/10 font-bold text-rose-300">12</div>
-            <div><h3 class="font-semibold text-white">Netflix Premium</h3><p class="text-sm text-slate-400">Cuota mensual · vence el 12 de noviembre</p></div>
+
+      <!-- SALDOS Y ALERTAS -->
+      <div class="fin-bottom">
+        <section class="fin-panel">
+          <div class="fin-panel-header"><div><h2><span class="fin-panel-symbol">⬡</span> Saldos por grupo</h2><p>Ingresos completados por cuenta o grupo</p></div></div>
+          <div class="fin-group-grid">
+            @for (grupoSaldo of saldosPorGrupo; track grupoSaldo.servicio + grupoSaldo.grupo) {
+              <div class="fin-group-card" [style.border-color]="grupoSaldo.color">
+                <div class="fin-group-top"><span class="fin-brand fin-brand-large" [style.color]="grupoSaldo.color">{{ siglaServicio(grupoSaldo.servicio) }}</span><strong>{{ grupoSaldo.servicio }}</strong></div>
+                <small>{{ grupoSaldo.grupo }}</small>
+                <b>$ {{ dinero(grupoSaldo.monto) }}</b>
+                <div class="fin-progress"><span [style.width.%]="grupoSaldo.porcentaje" [style.background]="grupoSaldo.color"></span></div>
+              </div>
+            } @empty {<p class="fin-muted">Sin saldos por grupo todavía.</p>}
           </div>
-          <div class="flex items-center justify-between gap-6 sm:justify-end"><strong class="text-white">$55.00 MXN</strong><span class="rounded-full bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-200">Pendiente</span></div>
-        </article>
-        <article class="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-4">
-            <div class="grid h-11 w-11 place-items-center rounded-xl bg-sky-400/10 font-bold text-sky-300">18</div>
-            <div><h3 class="font-semibold text-white">Prime Video</h3><p class="text-sm text-slate-400">Cuota mensual · vence el 18 de noviembre</p></div>
+        </section>
+        <section class="fin-panel">
+          <div class="fin-panel-header"><div><h2><span class="fin-panel-symbol">♧</span> Alertas recientes</h2><p>Movimientos pendientes de confirmar</p></div><span class="fin-count">{{ pendientes.length }} pendientes</span></div>
+          <div class="fin-alert-list">
+            @for (pendiente of pendientes.slice(0, 4); track pendiente.id) {
+              <div class="fin-alert"><span class="fin-alert-icon">◷</span><div><strong>{{ pendiente.concepto }}</strong><small>{{ pendiente.servicio }} · {{ pendiente.grupo || 'Sin grupo' }}</small></div><span>{{ mostrarFecha(pendiente.fecha) }}</span></div>
+            } @empty {<p class="fin-muted">No hay pagos pendientes de confirmar.</p>}
           </div>
-          <div class="flex items-center justify-between gap-6 sm:justify-end"><strong class="text-white">$50.00 MXN</strong><span class="rounded-full bg-emerald-400/10 px-3 py-1 text-xs font-semibold text-emerald-300">Pagado</span></div>
-        </article>
-        <article class="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div class="flex items-center gap-4">
-            <div class="grid h-11 w-11 place-items-center rounded-xl bg-violet-400/10 font-bold text-violet-300">22</div>
-            <div><h3 class="font-semibold text-white">Spotify Familiar</h3><p class="text-sm text-slate-400">Cuota mensual · vence el 22 de noviembre</p></div>
-          </div>
-          <div class="flex items-center justify-between gap-6 sm:justify-end"><strong class="text-white">$45.00 MXN</strong><span class="rounded-full bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-200">Pendiente</span></div>
-        </article>
+        </section>
       </div>
-    </section>
+    </main>
+
+    <!-- COLUMNA DERECHA: RESUMEN Y ACCIONES -->
+    <aside class="fin-sidebar">
+      <section class="fin-panel fin-side-summary">
+        <div class="fin-panel-header"><h2><span class="fin-panel-symbol">ϟ</span> Resumen de finanzas</h2></div>
+        <p class="fin-muted">Vista general y accesos rápidos.</p>
+        <label class="fin-period" for="fin-period-input"><span>▦ Período actual</span><input id="fin-period-input" type="month" name="mesSeleccionado" [(ngModel)]="mesSeleccionado" aria-label="Seleccionar período"/></label>
+        <div class="fin-summary-list">
+          <div><span class="fin-positive">↗</span><span>Ingresos totales</span><b>$ {{ dinero(ingresos) }}</b></div>
+          <div><span class="fin-rose">↘</span><span>Gastos / Pagos</span><b>$ {{ dinero(gastos) }}</b></div>
+          <div class="fin-summary-total"><span class="fin-positive">◈</span><span>Ganancia neta</span><b>$ {{ dinero(ganancia) }}</b></div>
+        </div>
+        <button class="fin-button-primary" type="button" (click)="abrirFormulario()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><circle cx="17" cy="12" r="2"/></svg>
+          Registrar pago <span>→</span>
+        </button>
+        <button class="fin-button-secondary" type="button" (click)="exportarReporte()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v13m0 0-5-5m5 5 5-5M4 18v3h16v-3"/></svg>
+          Descargar reporte
+        </button>
+        <a href="#fin-analitica" class="fin-button-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-8M22 20V7"/></svg>
+          Ver analítica detallada
+        </a>
+      </section>
+
+      <div class="fin-poster" id="fin-analitica" aria-label="Decoración cinematográfica StreamHub">
+        <svg viewBox="0 0 340 340" fill="none" aria-hidden="true">
+          <defs><linearGradient id="fin-poster-grad" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#A76BFA"/><stop offset="1" stop-color="#19E3D2"/></linearGradient></defs>
+          <path d="M-20 245C70 140 194 338 355 166" stroke="#6C63FF" stroke-width="4" opacity=".7"/>
+          <path d="M-10 265C75 163 196 358 360 185" stroke="#A76BFA" stroke-width="2" opacity=".7"/>
+          <g transform="translate(172 43)"><path d="M12 0L116 60L12 120Z" stroke="url(#fin-poster-grad)" stroke-width="13" stroke-linejoin="round"/><path d="M12 0L116 60L12 120Z" stroke="#E5CCFF" stroke-width="2" stroke-linejoin="round"/></g>
+          <g transform="translate(65 158) rotate(-12)">
+            <path d="M0 30H130L110 164H20L0 30Z" fill="#F8EAFC"/>
+            <path d="M18 30H40L51 164H33Z" fill="#E95A93"/><path d="M71 30H94L87 164H65Z" fill="#E95A93"/>
+            <circle cx="14" cy="32" r="22" fill="#FFD98D"/><circle cx="42" cy="11" r="23" fill="#FFF0BA"/><circle cx="78" cy="15" r="25" fill="#FFD98D"/><circle cx="113" cy="28" r="21" fill="#FFF0BA"/><circle cx="63" cy="-8" r="19" fill="#FFE6A1"/>
+          </g>
+        </svg>
+        <div><strong>UNA EXPERIENCIA<br/>DE CINE</strong><small>StreamHub Neon Cinema</small></div>
+      </div>
+    </aside>
   </div>
 </section>
+
+<!-- FORMULARIO LATERAL, basado en el ejemplo de tu docente -->
+@if (mostrarFormulario) {
+  <div class="fin-overlay" (click)="cerrarFormulario()">
+    <aside class="fin-drawer animate__animated animate__fadeInRight" role="dialog" aria-modal="true" aria-label="Registrar aportación" (click)="$event.stopPropagation()">
+      <div class="fin-drawer-header">
+        <div><span class="fin-eyebrow">STREAMHUB · NUEVO REGISTRO</span><h2>Registrar aportación</h2><p>Completa los datos y observa la vista previa.</p></div>
+        <button type="button" class="fin-close" aria-label="Cerrar formulario" (click)="cerrarFormulario()">✕</button>
+      </div>
+      <form #formPago="ngForm" (ngSubmit)="enviar()">
+        <div class="fin-form-grid">
+          <label>Tipo de movimiento *
+            <select name="tipo" [(ngModel)]="tipo" required><option value="" disabled>Selecciona</option><option value="Ingreso">Ingreso</option><option value="Gasto">Gasto</option></select>
+          </label>
+          <label>Servicio *
+            <select name="servicio" [(ngModel)]="servicio" required><option value="" disabled>Selecciona</option>@for (s of servicios; track s) {<option [value]="s">{{ s }}</option>}</select>
+          </label>
+        </div>
+        @if (servicio === 'Otro') {
+          <label>Nombre del servicio *<input type="text" name="otroServicio" [(ngModel)]="otroServicio" placeholder="Nombre de la plataforma" required/></label>
+        }
+        <label>Grupo o cuenta<input type="text" name="grupo" [(ngModel)]="grupo" placeholder="Ej. Grupo A (opcional)"/></label>
+        <label>Concepto *<input type="text" name="concepto" [(ngModel)]="concepto" placeholder="Ej. Mensualidad de Netflix" required/></label>
+        <div class="fin-form-grid">
+          <label>Monto (MXN) *<input type="number" name="monto" [(ngModel)]="monto" min="0.01" step="0.01" placeholder="0.00" required/></label>
+          <label>Método *<select name="metodo" [(ngModel)]="metodo" required><option value="" disabled>Selecciona</option><option value="Transferencia">Transferencia</option><option value="Tarjeta">Tarjeta</option><option value="Efectivo">Efectivo</option><option value="Simulado">Simulado</option></select></label>
+        </div>
+        <div class="fin-form-grid">
+          <label>Fecha *<input type="date" name="fecha" [(ngModel)]="fecha" required/></label>
+          <label>Estado *<select name="estado" [(ngModel)]="estado" required><option value="" disabled>Selecciona</option><option value="Completado">Completado</option><option value="Pendiente">Pendiente</option></select></label>
+        </div>
+
+        <!-- Vista previa con @if, igual que en clase -->
+        <aside class="fin-preview">
+          <h3>◈ Vista previa</h3>
+          @if (servicio || concepto || monto !== null || tipo || grupo || metodo || estado) {
+            @if (servicio) {<p>Servicio: <strong>{{ servicio === 'Otro' ? otroServicio || 'Otro' : servicio }}</strong></p>}
+            @if (grupo) {<p>Grupo: <strong>{{ grupo }}</strong></p>}
+            @if (concepto) {<p>Concepto: <strong>{{ concepto }}</strong></p>}
+            @if (tipo) {<p>Tipo: <strong>{{ tipo }}</strong></p>}
+            @if (monto !== null) {<p>Monto: <strong>$ {{ monto }} MXN</strong></p>}
+            @if (metodo) {<p>Método: <strong>{{ metodo }}</strong></p>}
+            @if (fecha) {<p>Fecha: <strong>{{ mostrarFecha(fecha) }}</strong></p>}
+            @if (estado) {<p>Estado: <strong>{{ estado }}</strong></p>}
+          } @else {<p>Sin información</p>}
+        </aside>
+        <div class="fin-form-actions">
+          <button type="button" class="fin-button-secondary" (click)="cerrarFormulario()">Cancelar</button>
+          <button type="submit" class="fin-button-primary" [disabled]="formPago.invalid || (servicio === 'Otro' && !otroServicio.trim())">Guardar movimiento</button>
+        </div>
+      </form>
+    </aside>
+  </div>
+}
